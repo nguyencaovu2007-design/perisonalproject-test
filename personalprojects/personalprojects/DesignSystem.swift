@@ -326,7 +326,7 @@ class WalletViewModel: ObservableObject {
 @MainActor
 class ProfileViewModel: ObservableObject {
     @Published var userName = "Vũ Cao Nguyên"
-    @Published var phone    = "0912 345 678"
+    @Published var phone    = "0941 338 447"
     var initials: String {
         let p = userName.split(separator: " ")
         return "\(p.first?.prefix(1) ?? "")\(p.last?.prefix(1) ?? "")"

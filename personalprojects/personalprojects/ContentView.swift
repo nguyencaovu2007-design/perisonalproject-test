@@ -263,6 +263,43 @@ struct CosmicTabBar: View {
                 }
             }
         }
+        
+        private func scanCtrlBtn(icon: String, label: String, color: Color, action: @escaping () -> Void) -> some View {
+            Button(action: action) {
+                VStack(spacing: 8) {
+                    ZStack {
+                        Circle().fill(color.opacity(0.15)).frame(width: 60, height: 60)
+                            .overlay(Circle().stroke(color.opacity(0.3), lineWidth: 1))
+                        Image(systemName: icon).font(.system(size: 22)).foregroundColor(color)
+                    }
+                    .cosmicGlow(color: color, radius: 6)
+                    Text(label).font(.system(size: 12, weight: .medium)).foregroundColor(Color(white: 0.7))
+                }
+            }
+            .buttonStyle(CosmicButtonStyle())
+        }
+    }
+
+    struct CosmicScanLine: View {
+        @State private var offset: CGFloat = 0
+        var body: some View {
+            GeometryReader { g in
+                ZStack {
+                    Rectangle()
+                        .fill(LinearGradient(colors: [.clear, .appPrimary.opacity(0.9), .cosmicCyan.opacity(0.7), .clear],
+                                             startPoint: .leading, endPoint: .trailing))
+                        .frame(height: 2).offset(y: offset).blur(radius: 1)
+                    Rectangle()
+                        .fill(Color.appPrimary.opacity(0.25))
+                        .frame(height: 8).offset(y: offset).blur(radius: 4)
+                }
+                .onAppear {
+                    withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
+                        offset = g.size.height - 2
+                    }
+                }
+            }
+        }
     }
 }
 #Preview {
